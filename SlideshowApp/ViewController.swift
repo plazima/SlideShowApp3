@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var beforeButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
     
     var timer : Timer!
     
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
          if self.index == images.count {
          self.index = 0
         }
-        self.imageView.image = UIImage(named:self.images[self.index])
+        imageView.image = UIImage(named:self.images[self.index])
     }
     
     
@@ -53,6 +54,7 @@ class ViewController: UIViewController {
             self.index += 1
             self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector:
                 #selector(updateTimer(_:)), userInfo: nil, repeats: true)
+            startButton.setTitle("停止",for: .normal)
         
         }
         else if self.timer != nil {
@@ -60,6 +62,7 @@ class ViewController: UIViewController {
              self.beforeButton.isEnabled = true
              self.timer.invalidate()
              self.timer = nil
+             startButton.setTitle("再生",for: .normal)
         }
         imageView.image = UIImage(named:self.images[self.index])
     }
@@ -77,6 +80,9 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let secondViewController:SecondViewController = segue.destination as! SecondViewController
         secondViewController.image = imageView.image
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
     }
     @IBAction func gesture(_ sender: Any) {
     }
