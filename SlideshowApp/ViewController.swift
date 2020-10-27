@@ -82,6 +82,10 @@ class ViewController: UIViewController {
         secondViewController.image = imageView.image
         if self.timer != nil {
             self.timer.invalidate()
+            self.timer = nil
+            self.nextButton.isEnabled = true
+            self.beforeButton.isEnabled = true
+            startButton.setTitle("再生",for: .normal)
         }
     }
     @IBAction func gesture(_ sender: Any) {
